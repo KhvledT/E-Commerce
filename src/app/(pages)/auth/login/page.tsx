@@ -52,7 +52,9 @@ export default function LoginPage() {
       })
       
       if (response?.ok) {
+        await new Promise(resolve => setTimeout(resolve, 100))
         router.push(callbackUrl)
+        router.refresh()
       } else {
         setError( 'password or email is incorrect, try again')
       }

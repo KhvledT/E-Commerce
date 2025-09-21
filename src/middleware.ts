@@ -43,6 +43,10 @@ export async function middleware(request: NextRequest) {
   }
 
   if (token && isAuthRoute) {
+    const callbackUrl = request.nextUrl.searchParams.get('callbackUrl')
+    if (callbackUrl) {
+      return NextResponse.redirect(new URL(callbackUrl, request.url))
+    }
     return NextResponse.redirect(new URL('/', request.url))
   }
 
