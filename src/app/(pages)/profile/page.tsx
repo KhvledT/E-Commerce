@@ -106,6 +106,14 @@ export default function ProfilePage() {
   }, [countdownInterval])
 
   async function getCartOwner() {
+    if (cartOwner) {
+      localStorage.setItem('cartOwner', cartOwner);
+      return
+    }
+    if (localStorage.getItem('cartOwner')) {
+      setCartOwner(localStorage.getItem('cartOwner')!);
+      return
+    }
     const response = await apiServices.getCartApi(session?.user?.token);
     setCartOwner(response.data.cartOwner);
     localStorage.setItem('cartOwner', response.data.cartOwner);
@@ -136,7 +144,10 @@ export default function ProfilePage() {
   }
 
   const loadUserOrders = async () => {
-    if (!cartOwner || !localStorage.getItem('cartOwner')){
+    if (!cartOwner){
+      return
+    }
+    if (!localStorage.getItem('cartOwner')) {
       return
     }
     setOrdersLoading(true)
