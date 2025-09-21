@@ -86,12 +86,16 @@ export default function ProfilePage() {
       if(!cartOwner){
         setCartOwner(localStorage.getItem('cartOwner')!)
       }
-      
-      loadUserProfile()
-      loadUserOrders()
-      loadUserAddresses()
+      allFunctions()
     }
   }, [status, session, router])
+
+  async function allFunctions() {
+    await getCartOwner()
+    await loadUserProfile()
+    await loadUserOrders()
+    await loadUserAddresses()
+  }
 
   useEffect(() => {
     return () => {
@@ -101,6 +105,11 @@ export default function ProfilePage() {
     }
   }, [countdownInterval])
 
+  async function getCartOwner() {
+    const response = await apiServices.getCartApi(session?.user?.token);
+    setCartOwner(response.data.cartOwner);
+    localStorage.setItem('cartOwner', response.data.cartOwner);
+  }
   
 
   const loadUserProfile = async () => {
@@ -132,7 +141,7 @@ export default function ProfilePage() {
     }
     setOrdersLoading(true)
     try {
-      const response = await apiServices.getUserOrdersApi(cartOwner || localStorage.getItem('cartOwner')!)
+      const response = await apiServices.getUserOrdersApi(localStorage.getItem('cartOwner') || cartOwner!)
         let ordersData: Order[] = []
         
         if (Array.isArray(response)) {

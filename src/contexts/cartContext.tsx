@@ -23,8 +23,9 @@ export function CartContextProvider({ children }: { children: React.ReactNode })
     async function getCartCount() {
         setIsLoading(true);
       
+        const response = await apiServices.getCartApi(session?.user?.token);
+        setCartCount(response.numOfCartItems || 0);
         if (localStorage.getItem("email") === session?.user?.email) {
-          const response = await apiServices.getCartApi(session?.user?.token);
       
           if (
             response.data &&
