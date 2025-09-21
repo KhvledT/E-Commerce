@@ -36,7 +36,7 @@ export default function RegisterPage() {
     },
   })
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: { name: string; email: string; password: string; rePassword: string; phone: string }) => {
     setIsLoading(true)
     setError('')
     setSuccess('')
@@ -52,9 +52,9 @@ export default function RegisterPage() {
       } else {
         setError(response.message || 'Registration failed. Please try again.')
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Registration failed:', error)
-      setError(error.response?.data?.message || error.message || 'An unexpected error occurred. Please try again.')
+      setError((error as { response?: { data?: { message?: string } }; message?: string })?.response?.data?.message || (error as { message?: string })?.message || 'An unexpected error occurred. Please try again.')
     } finally {
       setIsLoading(false)
     }

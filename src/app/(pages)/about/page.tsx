@@ -35,7 +35,7 @@ export default function AboutPage() {
               </div>
               <h3 className="text-xl font-semibold mb-2">Our Vision</h3>
               <p className="text-muted-foreground">
-                To become the world's most trusted e-commerce platform for technology products.
+                To become the world&apos;s most trusted e-commerce platform for technology products.
               </p>
             </div>
             <div className="text-center p-6 bg-muted/30 rounded-lg">

@@ -154,7 +154,7 @@ export default function CategoryDetailPage() {
               <p className="text-muted-foreground leading-relaxed text-lg">
                 Discover amazing products in the {category.name} category. We offer a carefully 
                 curated selection of high-quality items that meet your needs and exceed your expectations. 
-                From everyday essentials to premium selections, find everything you're looking for.
+                From everyday essentials to premium selections, find everything you&apos;re looking for.
               </p>
             </div>
 

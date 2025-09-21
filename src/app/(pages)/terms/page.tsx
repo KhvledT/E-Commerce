@@ -14,7 +14,7 @@ export default function TermsPage() {
             <section>
               <h2 className="text-2xl font-semibold mb-4">Acceptance of Terms</h2>
               <p className="text-muted-foreground">
-                By accessing and using TechMart's website and services, you accept and agree to be bound 
+                By accessing and using TechMart&apos;s website and services, you accept and agree to be bound 
                 by the terms and provision of this agreement.
               </p>
             </section>
@@ -22,7 +22,7 @@ export default function TermsPage() {
             <section>
               <h2 className="text-2xl font-semibold mb-4">Use License</h2>
               <p className="text-muted-foreground mb-4">
-                Permission is granted to temporarily download one copy of the materials on TechMart's 
+                Permission is granted to temporarily download one copy of the materials on TechMart&apos;s 
                 website for personal, non-commercial transitory viewing only.
               </p>
             </section>
@@ -55,7 +55,7 @@ export default function TermsPage() {
               <h2 className="text-2xl font-semibold mb-4">Limitation of Liability</h2>
               <p className="text-muted-foreground">
                 In no event shall TechMart or its suppliers be liable for any damages arising out of 
-                the use or inability to use the materials on TechMart's website.
+                the use or inability to use the materials on TechMart&apos;s website.
               </p>
             </section>
 

@@ -698,7 +698,7 @@ export default function ProfilePage() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                       </svg>
                     </div>
-                    <p className="text-sm sm:text-base text-gray-600 font-medium">Click "Change" to update your password</p>
+                    <p className="text-sm sm:text-base text-gray-600 font-medium">Click &quot;Change&quot; to update your password</p>
                     <p className="text-xs sm:text-sm text-gray-500 mt-1">Ensure your account security with a strong password</p>
                   </div>
                 )}
@@ -977,7 +977,7 @@ export default function ProfilePage() {
                       </svg>
                     </div>
                     <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2">No orders found</h3>
-                    <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">You haven't placed any orders yet</p>
+                    <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">You haven&apos;t placed any orders yet</p>
                     <Button 
                       className="bg-gradient-to-r from-black to-gray-800 hover:from-gray-900 hover:to-black text-white font-semibold px-6 sm:px-8 py-2 sm:py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base"
                       onClick={() => router.push('/products')}

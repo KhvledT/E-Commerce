@@ -147,7 +147,7 @@ export default function ViewOrdersPage() {
                 </svg>
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">No Orders Found</h3>
-              <p className="text-gray-600 mb-8 max-w-md mx-auto">You haven't placed any orders yet. Start shopping to see your order history here.</p>
+              <p className="text-gray-600 mb-8 max-w-md mx-auto">You haven&apos;t placed any orders yet. Start shopping to see your order history here.</p>
               <Button 
                 onClick={() => router.push('/products')}
                 className="bg-gradient-to-r from-black to-gray-800 hover:from-gray-900 hover:to-black text-white font-semibold px-8 py-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"

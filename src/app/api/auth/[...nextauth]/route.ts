@@ -3,6 +3,7 @@ import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials";
 
 const handler = NextAuth({
+    secret: process.env.NEXTAUTH_SECRET,
     providers: [
         CredentialsProvider({
           name: "Credentials",
@@ -12,7 +13,7 @@ const handler = NextAuth({
             password: { label: "Password", type: "password" , placeholder: "********" }
           },
 
-          async authorize(credentials, req) {
+          async authorize(credentials) {
             try {
               if (!credentials?.email || !credentials?.password) {
                 return null
@@ -33,7 +34,7 @@ const handler = NextAuth({
               } else {
                 return null
               }
-            } catch (error) {
+            } catch (error: unknown) {
               return null
             }
           }
@@ -49,9 +50,9 @@ const handler = NextAuth({
                     id: user.id || '',
                     name: user.name || '',
                     email: user.email || '',
-                    phone: (user as any).phone || '',
-                    role: (user as any).role || '',
-                    token: (user as any).token || ''
+                    phone: (user as { phone?: string }).phone || '',
+                    role: (user as { role?: string }).role || '',
+                    token: (user as { token?: string }).token || ''
                 }
             }
             return token

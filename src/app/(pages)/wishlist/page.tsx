@@ -141,7 +141,7 @@ export default function WishlistPage() {
           <Heart className="h-24 w-24 text-muted-foreground mx-auto mb-6" />
           <h2 className="text-2xl font-bold mb-4">Your wishlist is empty</h2>
           <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-            Start adding products you love to your wishlist. You can save items for later and easily add them to your cart when you're ready to buy.
+            Start adding products you love to your wishlist. You can save items for later and easily add them to your cart when you&apos;re ready to buy.
           </p>
           <Link href="/products">
             <Button size="lg" className="gap-2">

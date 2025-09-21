@@ -108,11 +108,11 @@ export default function ForgotPasswordPage() {
     try {
       const response = await apiServices.forgotPasswordApi(data.email)
       
-      if (response.statusMsg === 'success') {
+      if (response.message === 'success') {
         setEmail(data.email)
         setStep('code')
       } else {
-        setError(response.error || 'Failed to send reset code')
+        setError(response.message || 'Failed to send reset code')
       }
     } catch (err) {
       setError('An error occurred. Please try again.')
@@ -128,10 +128,10 @@ export default function ForgotPasswordPage() {
     try {
       const response = await apiServices.verifyForgotPasswordApi(data.resetCode)
       
-      if (response.status === 'Success') {
+      if (response.message === 'Success') {
         setStep('password')
       } else {
-        setError(response.error || 'Invalid reset code')
+        setError(response.message || 'Invalid reset code')
       }
     } catch (err) {
       setError('An error occurred. Please try again.')
@@ -146,13 +146,13 @@ export default function ForgotPasswordPage() {
     
     try {
       const response = await apiServices.resetPasswordApi(email, data.password)
-      if (response.token) {
+      if (response.message === 'success') {
         setStep('success')
         setTimeout(() => {
           router.push('/auth/login')
         }, 2000)
       } else {
-        setError(response.error || 'Failed to reset password')
+        setError(response.message || 'Failed to reset password')
       }
     } catch (err) {
       setError('An error occurred. Please try again.')
@@ -185,7 +185,7 @@ export default function ForgotPasswordPage() {
       if (response.message) {
         setError('')
       } else {
-        setError(response.error || 'Failed to resend code')
+        setError(response.message || 'Failed to resend code')
       }
     } catch (err) {
       setError('An error occurred. Please try again.')

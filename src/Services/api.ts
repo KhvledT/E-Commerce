@@ -79,7 +79,7 @@ class ApiServices {
             headers: token ? this.#getAuthHeaders(token) : this.#getHeaders(),
         }).then(res => res.json());
     }
-    updateCartItemQuantityApi = async (itemId: string, count: number, token?: string) : Promise<any> => {
+    updateCartItemQuantityApi = async (itemId: string, count: number, token?: string) : Promise<GetCartResponse> => {
         return await fetch(`${this.#BASE_URL}api/v1/cart/${itemId}`, {
             method: "put",
             body: JSON.stringify({ count }),
@@ -92,7 +92,7 @@ class ApiServices {
             headers: token ? this.#getAuthHeaders(token) : this.#getHeaders(),
         }).then(res => res.json());
     }
-    clearCartApi = async (token?: string) : Promise<any> => {
+    clearCartApi = async (token?: string) : Promise<{ message: string }> => {
         return await fetch(`${this.#BASE_URL}api/v1/cart`, {
             method: "delete",
             headers: token ? this.#getAuthHeaders(token) : this.#getHeaders(),
@@ -138,7 +138,7 @@ class ApiServices {
             body: JSON.stringify({ name, email, password, rePassword, phone }),
         }).then(res => res.json());
     }
-    forgotPasswordApi = async (email: string) : Promise<any> => {
+    forgotPasswordApi = async (email: string) : Promise<{ message: string }> => {
         return await fetch(`${this.#BASE_URL}api/v1/auth/forgotPasswords`, {
             method: "post",
             headers: {
@@ -147,7 +147,7 @@ class ApiServices {
             body: JSON.stringify({ email }),
         }).then(res => res.json());
     }
-    verifyForgotPasswordApi = async (resetCode: string) : Promise<any> => {
+    verifyForgotPasswordApi = async (resetCode: string) : Promise<{ message: string }> => {
         return await fetch(`${this.#BASE_URL}api/v1/auth/verifyResetCode`, {
             method: "post",
             headers: {
@@ -156,7 +156,7 @@ class ApiServices {
             body: JSON.stringify({ resetCode }),
         }).then(res => res.json());
     }
-    resetPasswordApi = async (email: string, newPassword: string) : Promise<any> => {
+    resetPasswordApi = async (email: string, newPassword: string) : Promise<{ message: string }> => {
         return await fetch(`${this.#BASE_URL}api/v1/auth/resetPassword`, {
             method: "put",
             headers: {
@@ -165,8 +165,8 @@ class ApiServices {
             body: JSON.stringify({ email, newPassword }),
         }).then(res => res.json());
     }
-    updateLoggedUserDataApi = async (name?: string, email?: string, token?: string): Promise<any> => {
-        let body: any = {};
+    updateLoggedUserDataApi = async (name?: string, email?: string, token?: string): Promise<{ message: string }> => {
+        const body: { name?: string; email?: string } = {};
     
         if (name !== undefined) {
             body.name = name;
@@ -182,7 +182,7 @@ class ApiServices {
         }).then(res => res.json());
     }
     
-     changePasswordApi = async (currentPassword: string, newPassword: string, confirmPassword: string, token?: string) : Promise<any> => {
+     changePasswordApi = async (currentPassword: string, newPassword: string, confirmPassword: string, token?: string) : Promise<{ message: string }> => {
          return await fetch(`${this.#BASE_URL}api/v1/users/changeMyPassword`, {
              method: "put",
              headers: token ? this.#getAuthHeaders(token) : this.#getHeaders(),
@@ -191,31 +191,32 @@ class ApiServices {
      }
 
     createOrderApi = async (cartId: string, shippingAddress: ShippingAddress, token?: string) : Promise<CheckoutSessionResponse> => {
-        return await fetch(`${this.#BASE_URL}api/v1/orders/checkout-session/${cartId}?url=http://localhost:3000`, {
+        const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+        return await fetch(`${this.#BASE_URL}api/v1/orders/checkout-session/${cartId}?url=${baseUrl}`, {
             method: "post",
             headers: token ? this.#getAuthHeaders(token) : this.#getHeaders(),
             body: JSON.stringify({ shippingAddress }),
         }).then(res => res.json());
     }
-    getUserOrdersApi = async (cartOwner: string, token?: string) : Promise<any> => {
+    getUserOrdersApi = async (cartOwner: string, token?: string) : Promise<{ data: unknown[] }> => {
         return await fetch(`${this.#BASE_URL}api/v1/orders/user/${cartOwner}`, {
             headers: token ? this.#getAuthHeaders(token) : this.#getHeaders(),
         }).then(res => res.json());
     }
-    addUserAddressApi = async (address: any, token?: string) : Promise<any> => {
+    addUserAddressApi = async (address: { alias: string; details: string; phone: string; city: string; postalCode: string }, token?: string) : Promise<{ message: string }> => {
         return await fetch(`${this.#BASE_URL}api/v1/addresses`, {
             method: "post",
             headers: token ? this.#getAuthHeaders(token) : this.#getHeaders(),
             body: JSON.stringify(address),
         }).then(res => res.json());
     }
-    removeUserAddressApi = async (addressId: string, token?: string) : Promise<any> => {
+    removeUserAddressApi = async (addressId: string, token?: string) : Promise<{ message: string }> => {
         return await fetch(`${this.#BASE_URL}api/v1/addresses/${addressId}`, {
             method: "delete",
             headers: token ? this.#getAuthHeaders(token) : this.#getHeaders(),
         }).then(res => res.json());
     }
-    getUserAddressesApi = async (token?: string) : Promise<any> => {
+    getUserAddressesApi = async (token?: string) : Promise<{ data: unknown[] }> => {
         return await fetch(`${this.#BASE_URL}api/v1/addresses`, {
             headers: token ? this.#getAuthHeaders(token) : this.#getHeaders(),
         }).then(res => res.json());

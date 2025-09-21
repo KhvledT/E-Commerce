@@ -16,7 +16,7 @@ export default function HelpPage() {
               <div>
                 <h4 className="font-medium mb-2">How do I track my order?</h4>
                 <p className="text-sm text-muted-foreground">
-                  You can track your order by logging into your account and visiting the "My Orders" page.
+                  You can track your order by logging into your account and visiting the &quot;My Orders&quot; page.
                 </p>
               </div>
               <div>
@@ -28,7 +28,7 @@ export default function HelpPage() {
               <div>
                 <h4 className="font-medium mb-2">How do I change my password?</h4>
                 <p className="text-sm text-muted-foreground">
-                  Go to your profile settings and click on "Change Password" to update your password.
+                  Go to your profile settings and click on &quot;Change Password&quot; to update your password.
                 </p>
               </div>
             </div>

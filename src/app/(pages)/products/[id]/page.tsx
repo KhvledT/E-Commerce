@@ -80,7 +80,7 @@ export default function ProductDetailPage() {
       try {
         const wishlistResponse = await apiServices.getWishlistApi(session.user.token);
         const isProductInWishlist = wishlistResponse.data.some(
-          (item: any) => item._id === product._id
+          (item: { _id: string }) => item._id === product._id
         );
         setIsInWishlist(isProductInWishlist);
       } catch (error) {

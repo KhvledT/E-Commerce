@@ -58,7 +58,7 @@ const { setCartCount, cartCount , setCartOwner } = useContext(CartContext) as Ca
     
     try {
       const response = await apiServices.getWishlistApi(session.user.token);
-      const wishlistProductIds = response.data.map((item: any) => item._id);
+      const wishlistProductIds = response.data.map((item: { _id: string }) => item._id);
       setWishlistIds(wishlistProductIds);
     } catch (error) {
       console.error('Error fetching wishlist:', error);
