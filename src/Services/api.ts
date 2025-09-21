@@ -193,7 +193,7 @@ class ApiServices {
      }
 
     createOrderApi = async (cartId: string, shippingAddress: ShippingAddress, token?: string) : Promise<CheckoutSessionResponse> => {
-        const baseUrl = process.env.NEXTAUTH_URL;
+        const baseUrl = process.env.NEXT_PUBLIC_NEXTAUTH_URL;
         return await fetch(`${this.#BASE_URL}api/v1/orders/checkout-session/${cartId}?url=${baseUrl}`, {
             method: "post",
             headers: token ? this.#getAuthHeaders(token) : this.#getHeaders(),
