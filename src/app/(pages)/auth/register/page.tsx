@@ -31,7 +31,7 @@ export default function RegisterPage() {
       name: '',
       email: '',
       password: '',
-      confirmPassword: '',
+      rePassword: '',
       phone: '',
     },
   })
@@ -228,7 +228,7 @@ export default function RegisterPage() {
 
                 <FormField
                   control={form.control}
-                  name="confirmPassword"
+                  name="rePassword"
                   rules={{
                     required: 'Please confirm your password',
                     validate: (value) => {
