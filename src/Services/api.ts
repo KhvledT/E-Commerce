@@ -20,7 +20,7 @@ class ApiServices {
         
         return {
             "Content-Type": "application/json",
-            token: csrfToken || process.env.NEXT_PUBLIC_API_TOKEN || "",
+            token: csrfToken || "",
         }
     }
 
