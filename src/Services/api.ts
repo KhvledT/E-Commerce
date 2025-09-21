@@ -140,7 +140,7 @@ class ApiServices {
             body: JSON.stringify({ name, email, password, rePassword, phone }),
         }).then(res => res.json());
     }
-    forgotPasswordApi = async (email: string) : Promise<{ message: string }> => {
+    forgotPasswordApi = async (email: string) : Promise<{ statusMsg: string }> => {
         return await fetch(`${this.#BASE_URL}api/v1/auth/forgotPasswords`, {
             method: "post",
             headers: {
@@ -149,7 +149,7 @@ class ApiServices {
             body: JSON.stringify({ email }),
         }).then(res => res.json());
     }
-    verifyForgotPasswordApi = async (resetCode: string) : Promise<{ message: string }> => {
+    verifyForgotPasswordApi = async (resetCode: string) : Promise<{ status: string }> => {
         return await fetch(`${this.#BASE_URL}api/v1/auth/verifyResetCode`, {
             method: "post",
             headers: {
@@ -158,7 +158,7 @@ class ApiServices {
             body: JSON.stringify({ resetCode }),
         }).then(res => res.json());
     }
-    resetPasswordApi = async (email: string, newPassword: string) : Promise<{ message: string }> => {
+    resetPasswordApi = async (email: string, newPassword: string) : Promise<{ message: string,token: string }> => {
         return await fetch(`${this.#BASE_URL}api/v1/auth/resetPassword`, {
             method: "put",
             headers: {

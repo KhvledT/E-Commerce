@@ -10,7 +10,6 @@ import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { apiServices } from '@/Services/api'
-import { LoadingSpinner } from '@/components/shared'
 
 const PasswordStrengthIndicator = ({ password }: { password: string }) => {
   const getStrength = (password: string) => {
@@ -79,6 +78,7 @@ export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
+  const [successMessage, setSuccessMessage] = useState('')
 
   const emailForm = useForm<EmailFormData>({
     resolver: zodResolver(emailSchema),
@@ -104,15 +104,17 @@ export default function ForgotPasswordPage() {
   const onEmailSubmit = async (data: EmailFormData) => {
     setIsLoading(true)
     setError('')
+    setSuccessMessage('')
     
     try {
       const response = await apiServices.forgotPasswordApi(data.email)
-      
-      if (response.message === 'success') {
+      if (response.statusMsg === 'success') {
         setEmail(data.email)
         setStep('code')
+        setError('')
+        setSuccessMessage('')
       } else {
-        setError(response.message || 'Failed to send reset code')
+        setError(response.statusMsg || 'Failed to send reset code')
       }
     } catch (err) {
       setError('An error occurred. Please try again.')
@@ -124,14 +126,17 @@ export default function ForgotPasswordPage() {
   const onCodeSubmit = async (data: CodeFormData) => {
     setIsLoading(true)
     setError('')
+    setSuccessMessage('')
     
     try {
       const response = await apiServices.verifyForgotPasswordApi(data.resetCode)
       
-      if (response.message === 'Success') {
+      if (response.status === 'Success') {
         setStep('password')
+        setError('')
+        setSuccessMessage('')
       } else {
-        setError(response.message || 'Invalid reset code')
+        setError(response.status || 'Invalid reset code')
       }
     } catch (err) {
       setError('An error occurred. Please try again.')
@@ -146,7 +151,7 @@ export default function ForgotPasswordPage() {
     
     try {
       const response = await apiServices.resetPasswordApi(email, data.password)
-      if (response.message === 'success') {
+      if (response.token) {
         setStep('success')
         setTimeout(() => {
           router.push('/auth/login')
@@ -165,27 +170,33 @@ export default function ForgotPasswordPage() {
   const handleBackToEmail = () => {
     setStep('email')
     setError('')
+    setSuccessMessage('')
+    setEmail('')
     codeForm.reset()
     passwordForm.reset()
+    emailForm.reset()
   }
 
   const handleBackToCode = () => {
     setStep('code')
     setError('')
+    setSuccessMessage('')
     passwordForm.reset()
   }
 
   const handleResendCode = async () => {
     setIsLoading(true)
     setError('')
+    setSuccessMessage('')
     
     try {
       const response = await apiServices.forgotPasswordApi(email)
       
-      if (response.message) {
-        setError('')
+      if (response.statusMsg === 'success') {
+        setSuccessMessage('Reset code sent successfully!')
+        setTimeout(() => setSuccessMessage(''), 3000)
       } else {
-        setError(response.message || 'Failed to resend code')
+        setError(response.statusMsg || 'Failed to resend code')
       }
     } catch (err) {
       setError('An error occurred. Please try again.')
@@ -217,6 +228,12 @@ export default function ForgotPasswordPage() {
             {error && (
               <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-md">
                 <p className="text-xs sm:text-sm text-red-600">{error}</p>
+              </div>
+            )}
+
+            {successMessage && (
+              <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-md">
+                <p className="text-xs sm:text-sm text-green-600">{successMessage}</p>
               </div>
             )}
 
