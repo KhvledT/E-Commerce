@@ -19,7 +19,7 @@ export default function ProductsPage() {
   const router = useRouter();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
-  const [cartLoading, setCartLoading] = useState(false);
+  const [cartLoading, setCartLoading] = useState<Record<string, boolean>>({});
   const [wishlistLoading, setWishlistLoading] = useState(false);
   const [wishlistLoadingId, setWishlistLoadingId] = useState<string | null>(null);
   const [error, setError] = useState(null);
@@ -118,21 +118,27 @@ const { setCartCount, cartCount , setCartOwner } = useContext(CartContext) as Ca
       return;
     }
 
-    setCartLoading(true);
+    // Prevent duplicate requests for the same product
+    if (cartLoading[productId]) {
+      return;
+    }
+
+    setCartLoading(prev => ({ ...prev, [productId]: true }));
     try {
       const response = await apiServices.addToCartApi(productId, session?.user?.token);
       toast.success(response.message,{
         position: "top-left",
       });
+      const cartResponse = await apiServices.getCartApi(session?.user?.token);
+      setCartCount(cartResponse.numOfCartItems);
       setCartOwner(response.data.cartOwner);
       localStorage.setItem('cartOwner', response.data.cartOwner);
-      setCartCount(cartCount + 1);
     } catch (error) {
       toast.error("Failed to add product to cart", {
         position: "top-left",
       });
     } finally {
-      setCartLoading(false);
+      setCartLoading(prev => ({ ...prev, [productId]: false }));
     }
   }
 

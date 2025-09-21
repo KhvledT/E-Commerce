@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { ShoppingCart, Heart, Loader2 } from "lucide-react";
 import { renderStars } from "@/helpers/rating";
 import { formatPrice } from "@/helpers/currency";
-import { useRef } from "react";
 
 
 
@@ -15,23 +14,19 @@ interface ProductCardProps {
   product: Product;
   viewMode?: "grid" | "list";
   addToCart: (productId: string) => void;
-  cartLoading: boolean;
+  cartLoading: Record<string, boolean>;
   addToWishlist: (productId: string) => void;
   isInWishlist?: boolean;
   wishlistLoading?: boolean;
 }
 
 export function ProductCard({ product, viewMode = "grid", addToCart, cartLoading, addToWishlist, isInWishlist = false, wishlistLoading = false }: ProductCardProps) {
-  const gridCartLoadingRef = useRef<string>("");
-  const listCartLoadingRef = useRef<string>("");
 
   const handleHeartClick = () => {
     addToWishlist(product._id);
   };
-  async function handleAddToCart() {
-    gridCartLoadingRef.current = product._id;
-    await addToCart(product._id);
-    gridCartLoadingRef.current = "";
+  function handleAddToCart() {
+    addToCart(product._id);
   }
 
   if (viewMode === "list") {
@@ -120,14 +115,11 @@ export function ProductCard({ product, viewMode = "grid", addToCart, cartLoading
             </div>
 
             <Button 
-              onClick={() =>{
-                handleAddToCart()
-                listCartLoadingRef.current = product._id
-              }}
-              disabled={cartLoading && product._id === listCartLoadingRef.current}
+              onClick={handleAddToCart}
+              disabled={cartLoading[product._id]}
               className="w-full sm:w-auto"
               >
-              {cartLoading && product._id === listCartLoadingRef.current ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <ShoppingCart className="h-4 w-4 mr-2" />}
+              {cartLoading[product._id] ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <ShoppingCart className="h-4 w-4 mr-2" />}
               Add to Cart
             </Button>
           </div>
@@ -173,27 +165,7 @@ export function ProductCard({ product, viewMode = "grid", addToCart, cartLoading
           </div>
         )}
 
-        {/* Quick Actions Overlay */}
-        <div className="absolute bottom-3 left-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <Button 
-            size="sm" 
-            className="w-full bg-white text-primary hover:bg-primary hover:text-white shadow-lg transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300"
-            onClick={() =>{ 
-              handleAddToCart()
-              gridCartLoadingRef.current = product._id
-            }}
-            disabled={cartLoading && product._id === gridCartLoadingRef.current}
-          >
-            {(cartLoading && product._id === gridCartLoadingRef.current) ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
-            ) : (
-              <>
-                <ShoppingCart className="h-4 w-4 mr-2" />
-                Quick Add
-              </>
-            )}
-          </Button>
-        </div>
+       
       </div>
 
       {/* Product Info */}
@@ -262,13 +234,10 @@ export function ProductCard({ product, viewMode = "grid", addToCart, cartLoading
         <Button 
           className="w-full bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-white shadow-lg hover:shadow-xl transition-all duration-300 font-semibold" 
           size="sm" 
-          onClick={() =>{ 
-            handleAddToCart()
-            gridCartLoadingRef.current = product._id
-          }}
-          disabled={cartLoading && product._id === gridCartLoadingRef.current}
+          onClick={handleAddToCart}
+          disabled={cartLoading[product._id]}
         >
-          {(cartLoading && product._id === gridCartLoadingRef.current) ? (
+          {cartLoading[product._id] ? (
             <Loader2 className="h-4 w-4 mr-2 animate-spin" />
           ) : (
             <>
