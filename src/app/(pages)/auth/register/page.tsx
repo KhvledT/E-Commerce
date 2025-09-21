@@ -42,7 +42,7 @@ export default function RegisterPage() {
     setSuccess('')
     
     try {
-      const response = await apiServices.registerApi(data.name, data.email, data.password, data.confirmPassword, data.phone)
+      const response = await apiServices.registerApi(data.name, data.email, data.password, data.rePassword, data.phone)
       
       if (response.user) {
         setSuccess('Account created successfully! Redirecting to login...')
