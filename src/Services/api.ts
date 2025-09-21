@@ -1,6 +1,8 @@
 import { AddToCartResponse, GetCartResponse, ShippingAddress, CheckoutSessionResponse } from "@/interfaces";
 import { AuthResponse } from "@/interfaces/auth";
 import { AddToWishlistResponse, GetWishlistResponse } from "@/interfaces/wishList";
+import { AddressResponse, AddressFormData } from "@/interfaces/shipping";
+import { UserOrdersResponse, UpdateUserResponse, ChangePasswordResponse } from "@/interfaces/profile";
 
 const getCookie = (name: string): string | null => {
     if (typeof document === 'undefined') return null;
@@ -165,7 +167,7 @@ class ApiServices {
             body: JSON.stringify({ email, newPassword }),
         }).then(res => res.json());
     }
-    updateLoggedUserDataApi = async (name?: string, email?: string, token?: string): Promise<{ message: string }> => {
+    updateLoggedUserDataApi = async (name?: string, email?: string, token?: string): Promise<UpdateUserResponse> => {
         const body: { name?: string; email?: string } = {};
     
         if (name !== undefined) {
@@ -182,7 +184,7 @@ class ApiServices {
         }).then(res => res.json());
     }
     
-     changePasswordApi = async (currentPassword: string, newPassword: string, confirmPassword: string, token?: string) : Promise<{ message: string }> => {
+     changePasswordApi = async (currentPassword: string, newPassword: string, confirmPassword: string, token?: string) : Promise<ChangePasswordResponse> => {
          return await fetch(`${this.#BASE_URL}api/v1/users/changeMyPassword`, {
              method: "put",
              headers: token ? this.#getAuthHeaders(token) : this.#getHeaders(),
@@ -198,25 +200,25 @@ class ApiServices {
             body: JSON.stringify({ shippingAddress }),
         }).then(res => res.json());
     }
-    getUserOrdersApi = async (cartOwner: string, token?: string) : Promise<{ data: unknown[] }> => {
+    getUserOrdersApi = async (cartOwner: string, token?: string) : Promise<UserOrdersResponse> => {
         return await fetch(`${this.#BASE_URL}api/v1/orders/user/${cartOwner}`, {
             headers: token ? this.#getAuthHeaders(token) : this.#getHeaders(),
         }).then(res => res.json());
     }
-    addUserAddressApi = async (address: { alias: string; details: string; phone: string; city: string; postalCode: string }, token?: string) : Promise<{ message: string }> => {
+    addUserAddressApi = async (address: AddressFormData, token?: string) : Promise<{ status: string; message: string }> => {
         return await fetch(`${this.#BASE_URL}api/v1/addresses`, {
             method: "post",
             headers: token ? this.#getAuthHeaders(token) : this.#getHeaders(),
             body: JSON.stringify(address),
         }).then(res => res.json());
     }
-    removeUserAddressApi = async (addressId: string, token?: string) : Promise<{ message: string }> => {
+    removeUserAddressApi = async (addressId: string, token?: string) : Promise<{ status: string; message: string }> => {
         return await fetch(`${this.#BASE_URL}api/v1/addresses/${addressId}`, {
             method: "delete",
             headers: token ? this.#getAuthHeaders(token) : this.#getHeaders(),
         }).then(res => res.json());
     }
-    getUserAddressesApi = async (token?: string) : Promise<{ data: unknown[] }> => {
+    getUserAddressesApi = async (token?: string) : Promise<AddressResponse> => {
         return await fetch(`${this.#BASE_URL}api/v1/addresses`, {
             headers: token ? this.#getAuthHeaders(token) : this.#getHeaders(),
         }).then(res => res.json());

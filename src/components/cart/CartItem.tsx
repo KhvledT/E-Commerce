@@ -1,6 +1,6 @@
 "use client";
 
-import { CartProduct, Product } from "@/interfaces/cart";
+import { CartProduct, CartProductItem } from "@/interfaces/cart";
 import { formatPrice } from "@/helpers/currency";
 import { Button } from "@/components/ui/button";
 import { Loader2, Minus, Plus, Trash2 } from "lucide-react";
@@ -8,7 +8,7 @@ import Image from "next/image";
 import { useRef, useState, useEffect } from "react";
 
 interface CartItemProps {
-  item: CartProduct<Product>;
+  item: CartProduct<CartProductItem>;
   onQuantityChange: (itemId: string, newQuantity: number) => Promise<void>;
   handleRemove: (itemId: string) => Promise<void>;
   isUpdating: boolean;

@@ -1,13 +1,13 @@
 "use client";
 
-import { CartProduct, Product } from "@/interfaces/cart";
+import { CartProduct, CartProductItem } from "@/interfaces/cart";
 import { formatPrice } from "@/helpers/currency";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Receipt, ShoppingCart } from "lucide-react";
 
 interface OrderSummaryProps {
-  items: CartProduct<Product>[];
+  items: CartProduct<CartProductItem>[];
   totalPrice: number;
 }
 

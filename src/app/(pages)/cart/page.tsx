@@ -2,7 +2,7 @@
 
 import { apiServices } from '@/Services/api';
 import { CartItem, OrderSummary } from '@/components';
-import { CartProduct} from '@/interfaces/cart';
+import { CartProduct, CartProductItem} from '@/interfaces/cart';
 import { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { Button } from '@/components/ui/button';
@@ -11,11 +11,10 @@ import { CartContext, CartContextType } from '@/contexts/cartContext';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { LoadingSpinner } from '@/components/shared/LoadingSpinner';
-import { Product } from '@/interfaces';
 
 export default function Cart() {
   const { data: session } = useSession();
-  const [cartData, setCartData] = useState<CartProduct<Product>[]>([]);
+  const [cartData, setCartData] = useState<CartProduct<CartProductItem>[]>([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [isUpdating, setIsUpdating] = useState(false);
@@ -31,7 +30,7 @@ export default function Cart() {
         if (response.data) {
           setCartOwner(response.data.cartOwner);
           localStorage.setItem('cartOwner', response.data.cartOwner);
-          setCartData(response.data.products as CartProduct<Product>[]);
+          setCartData(response.data.products);
           setTotalPrice(response.data.totalCartPrice);
         }
         setIsLoading(false);
