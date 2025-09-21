@@ -37,7 +37,6 @@ const footerSections = [
     links: [
       { title: "Contact Us", href: "/contact" },
       { title: "Help Center", href: "/help" },
-      { title: "Checkout", href: "/checkout" },
     ],
   },
   {
@@ -162,9 +161,9 @@ export function Footer() {
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 rounded-lg border border-input bg-background px-3 sm:px-4 py-2 sm:py-3 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 shadow-sm"
+                className="flex-1 rounded-lg border border-input bg-background px-3 sm:px-4 py-3 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 shadow-sm h-10 sm:h-11"
               />
-              <Button type="submit" className="px-4 sm:px-6 py-2 sm:py-3 bg-primary hover:bg-primary/90 text-primary-foreground font-medium text-sm sm:text-base w-full sm:w-auto">
+              <Button type="submit" className="px-4 sm:px-6 py-3 bg-primary hover:bg-primary/90 text-primary-foreground font-medium text-sm sm:text-base w-full sm:w-auto h-10 sm:h-11">
                 Subscribe
               </Button>
             </div>

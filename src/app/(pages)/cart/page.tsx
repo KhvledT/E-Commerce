@@ -153,7 +153,7 @@ export default function Cart() {
           <div className="inline-flex items-center justify-center w-16 h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-gray-800 to-black rounded-full mb-4 lg:mb-6 shadow-lg">
             <ShoppingCart className="w-8 h-8 lg:w-10 lg:h-10 text-white" />
           </div>
-          <h1 className="text-2xl lg:text-4xl font-bold bg-gradient-to-r from-black via-gray-800 to-gray-700 bg-clip-text text-transparent mb-3 lg:mb-4">
+          <h1 className="text-2xl pb-2 lg:text-4xl font-bold bg-gradient-to-r from-black via-gray-800 to-gray-700 bg-clip-text text-transparent mb-3 lg:mb-4">
             Shopping Cart
           </h1>
           <p className="text-base lg:text-lg text-gray-600 max-w-2xl mx-auto mb-6 lg:mb-8">

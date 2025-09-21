@@ -249,7 +249,6 @@ export default function ProfilePage() {
         setMessage({ type: 'success', text: 'Password changed successfully! You will be logged out in 3 seconds to re-login.' })
         setPasswordForm({ currentPassword: '', newPassword: '', confirmPassword: '' })
         setIsChangingPassword(false)
-        // Reset password visibility states
         setShowCurrentPassword(false)
         setShowNewPassword(false)
         setShowConfirmPassword(false)
@@ -437,7 +436,7 @@ export default function ProfilePage() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
             </svg>
           </div>
-          <h1 className="text-2xl lg:text-4xl font-bold bg-gradient-to-r from-black via-gray-800 to-gray-700 bg-clip-text text-transparent mb-3 lg:mb-4">
+          <h1 className="text-2xl pb-2 lg:text-4xl font-bold bg-gradient-to-r from-black via-gray-800 to-gray-700 bg-clip-text text-transparent mb-3 lg:mb-4">
             My Profile
           </h1>
           <p className="text-base lg:text-lg text-gray-600 max-w-2xl mx-auto px-4">
