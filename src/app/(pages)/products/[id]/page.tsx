@@ -75,20 +75,29 @@ export default function ProductDetailPage() {
 
   useEffect(() => {
     const checkWishlistStatus = async () => {
-      if (!session?.user?.token || !product) return;
+      if (!session?.user?.token || !product) {
+        setIsInWishlist(false);
+        return;
+      }
       
       try {
         const wishlistResponse = await apiServices.getWishlistApi(session.user.token);
+        console.log('Wishlist response:', wishlistResponse);
+        console.log('Product ID:', product._id);
+        
         const isProductInWishlist = wishlistResponse.data.some(
           (item: { _id: string }) => item._id === product._id
         );
+        console.log('Is product in wishlist:', isProductInWishlist);
         setIsInWishlist(isProductInWishlist);
       } catch (error) {
+        console.error('Error checking wishlist status:', error);
+        setIsInWishlist(false);
       }
     };
 
     checkWishlistStatus();
-  }, [session, id]);
+  }, [session, product]);
 
   useEffect(() => {
     const handleLoginCallback = async () => {
