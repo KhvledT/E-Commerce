@@ -12,13 +12,11 @@ export default function Home() {
           Discover the latest technology, fashion, and lifestyle products.
           Quality guaranteed with fast shipping and excellent customer service.
         </p>
-        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
-          <Button size="lg" className="text-base sm:text-lg px-6 sm:px-8 w-full sm:w-auto">
-            <Link href={"/products"}>Shop Now</Link>
-          </Button>
-          <Button variant="outline" size="lg" className="text-base sm:text-lg px-6 sm:px-8 w-full sm:w-auto">
-            <Link href={"/categories"}>Browse Categories</Link>
-          </Button>
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4 ">
+            <Link href={"/products"} className="text-base sm:text-lg px-6 sm:px-8  sm:w-auto bg-black text-white py-2  rounded-lg shadow-lg hover:shadow-xl font-semibold transition-all duration-300">Shop Now</Link>
+
+            <Link href={"/categories"} className="text-base sm:text-lg px-6 sm:px-8  sm:w-auto bg-white text-black py-2  rounded-lg border border-black-500 font-semibold transition-all duration-300">Browse Categories</Link>
+
         </div>
       </div>
     </div>
